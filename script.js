@@ -1,9 +1,17 @@
-// Calling showTime function at every second
-setInterval(showTime, 1000);
+// def didn't copy half of this code off the internet
+setInterval(updateDock, 100);
+document.addEventListener("mousemove", mouseUpdate)
 
-// Defining showTime funcion
-function showTime() {
-    // Getting current time and date
+function mouseUpdate() {
+    if (event.clientY >= (window.innerHeight - 45)) {
+        document.getElementById("dock").style.bottom = "0";
+    } else {
+        document.getElementById("dock").style.bottom = "-60px";
+    }
+}
+
+
+function updateDock() {
     let time = new Date();
     let month = time.getMonth();
     let date = time.getDate();
@@ -14,7 +22,6 @@ function showTime() {
     time.setMonth(month);
     month = time.toLocaleString('en-US', { month : 'short' })
   
-    // Setting time for 12 Hrs format
     if (hour >= 12) {
         if (hour > 12) hour -= 12;
     } else if (hour == 0) {
@@ -34,20 +41,19 @@ function showTime() {
   
     let currentDate = month + " " + date
  
-    // Displaying the time
- document.getElementById("clock").innerHTML = currentTime;
-  document.getElementById("calendar").innerHTML = currentDate;
+    document.getElementById("clock").innerHTML = currentTime;
+    document.getElementById("calendar").innerHTML = currentDate;
 }
  
-    showTime();
+updateDock();
 
 const filesUrl = "chrome://file-manager";
 const settingsUrl = "chrome://os-settings";
 
 function files() {
-    chrome.tabs.create({url: filesUrl});
+    chrome.tabs.create("chrome://file-manager");
 }
 
 function settings() {
-    chrome.tabs.create({url: settingsUrl});
+    chrome.tabs.create("chrome://os-settings");
 }
